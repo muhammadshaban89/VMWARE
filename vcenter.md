@@ -19,9 +19,7 @@ You manage all ESXi hosts and VMs from one place:
 
 ---
 
-👉Follow my LinkdIn Profile: www.linkedin.com/in/muhammad-shaban-45577719a
 
-👉Youtube Channel: http://www.youtube.com/@engrm.shaban5099
 
 ### **2. Cluster Features (only available with vCenter)**
 These advanced features **do not work** without vCenter:
@@ -433,4 +431,6 @@ This is why VMware stopped supporting Windows‑based vCenter.
 
 ---
 
+👉Follow my LinkdIn Profile: www.linkedin.com/in/muhammad-shaban-45577719a
 
+👉Youtube Channel: http://www.youtube.com/@engrm.shaban5099
