@@ -202,8 +202,9 @@ You can manage **800 hosts total** (400 per vCenter).
 
 ---
 
-**four key functional components** of VCSA:
 
+
+**Four key functional components** of VCSA:
 ---
 
 # **1. vCenter Server (vpxd)**
