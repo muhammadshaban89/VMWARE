@@ -82,6 +82,99 @@ vCenter is the **manager** that coordinates all workers, assigns tasks, and keep
 
 ---
 
+
+
+
+# **Where is the ESXi host that vCenter manages hosted?**
+----------------------------
+
+### **ESXi hosts are physical servers.**  
+They run directly on hardware — not inside vCenter, not inside a VM (unless nested for labs).
+
+Examples of physical ESXi hosts:
+- Dell PowerEdge R730  
+- HP DL380  
+- Lenovo ThinkSystem  
+- Supermicro servers  
+
+These are the machines that vCenter manages.
+
+---
+
+# **Relationship Between ESXi and vCenter**
+
+### **ESXi hosts run on physical hardware.**  
+### **vCenter runs as a VM on one of those ESXi hosts.**
+
+So the relationship is:
+
+```
+Physical Server → ESXi → vCenter VM → Manages ESXi hosts
+```
+
+vCenter is **not** a hypervisor.  
+vCenter does **not** run ESXi.  
+vCenter only **manages** ESXi.
+
+---
+
+# **Where is vCenter hosted?**
+
+vCenter (VCSA) is a **virtual machine** that runs on:
+- One of your ESXi hosts  
+- Or a cluster of ESXi hosts  
+
+Example:
+
+```
+ESXi Host 1
+   └── vCenter VM (VCSA)
+ESXi Host 2
+   └── Other VMs
+ESXi Host 3
+   └── Other VMs
+```
+
+vCenter manages all hosts, including the one it is running on.
+
+---
+
+# **Where are the ESXi hosts that vCenter manages?**
+
+They are:
+- Physical servers  
+- Running ESXi hypervisor  
+- Connected to vCenter through the network  
+
+vCenter does **not** “host” ESXi.  
+ESXi hosts are **independent physical machines**.
+
+---
+
+# **Simple Analogy**
+
+Think of ESXi hosts as **employees**.  
+Think of vCenter as the **manager**.
+
+Employees work physically in the office.  
+The manager sits in one office but manages all employees.
+
+The manager does NOT “host” the employees — he just controls and coordinates them.
+
+---
+
+
+# **Summary**
+
+- ESXi hosts = **physical servers**  
+- vCenter = **VM running on ESXi**  
+- vCenter **manages** ESXi hosts  
+- ESXi hosts are **not hosted inside vCenter**  
+- vCenter is **hosted on ESXi**, not the other way around  
+
+---
+
+
 # Why vCenter Shows Two URLs During Installation
 
 ## **1. vSphere Client (HTML5 UI)**
@@ -266,25 +359,6 @@ But:
 There is **no 1:1 relationship**.
 
 ---
-
-# Practical Example for You
-If you deploy:
-- **1 vCenter (Small)**  
-You can manage up to **400 ESXi hosts**.
-
-If you deploy:
-- **2 vCenters (Small)**  
-You can manage **800 hosts total** (400 per vCenter).
-
----
-
-# Summary
-- vCenter can manage **up to 2,500 ESXi hosts** (X‑Large deployment).  
-- Most labs use **Tiny or Small**, managing **10–100 hosts**.  
-- Your R730 lab will be perfectly fine with **Tiny** or **Small**.
-
----
-
 
 
 **Four key functional components** of VCSA:
