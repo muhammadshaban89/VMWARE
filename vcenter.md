@@ -84,26 +84,8 @@ vCenter is the **manager** that coordinates all workers, assigns tasks, and keep
 
 
 
-
-# **Where is the ESXi host that vCenter manages hosted?**
-----------------------------
-
-### **ESXi hosts are physical servers.**  
-They run directly on hardware — not inside vCenter, not inside a VM (unless nested for labs).
-
-Examples of physical ESXi hosts:
-- Dell PowerEdge R730  
-- HP DL380  
-- Lenovo ThinkSystem  
-- Supermicro servers  
-
-These are the machines that vCenter manages.
-
----
-
 # **Relationship Between ESXi and vCenter**
 
-### **ESXi hosts run on physical hardware.**  
 ### **vCenter runs as a VM on one of those ESXi hosts.**
 
 So the relationship is:
@@ -142,7 +124,11 @@ vCenter manages all hosts, including the one it is running on.
 # **Where are the ESXi hosts that vCenter manages?**
 
 They are:
-- Physical servers  
+- Physical servers
+     - Dell PowerEdge R730  
+     - HP DL380  
+     - Lenovo ThinkSystem  
+     - Supermicro servers
 - Running ESXi hypervisor  
 - Connected to vCenter through the network  
 
