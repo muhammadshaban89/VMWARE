@@ -202,10 +202,7 @@ You can manage **800 hosts total** (400 per vCenter).
 
 ---
 
-You’re asking about the **four main functionalities of the vCenter Server Appliance (VCSA)** that come from its underlying **Photon OS–based architecture**.  
-VMware often highlights these as the core capabilities that make VCSA powerful and self‑contained.
-
-Here are the **four key functional components** of VCSA:
+**four key functional components** of VCSA:
 
 ---
 
