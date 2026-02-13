@@ -233,13 +233,13 @@ This is very common in home labs.
 
 # vCenter Server Maximum ESXi Hosts (vSphere 7 & 8)
 
-| vCenter Size | Max ESXi Hosts |
+| vCenter Size | Max ESXi Hosts/Vms |
 |-------------|----------------|
-| **Tiny** | ~10–20 (practical limit, not official) |
-| **Small** | **400** |
-| **Medium** | **1,000** |
-| **Large** | **2,000** |
-| **X‑Large** | **2,500** |
+| **Tiny** | ~10/100 (practical limit, not official) |
+| **Small** | **100/1000** |
+| **Medium** | **400/4000** |
+| **Large** | **1000/10000** |
+| **X‑Large** | **2,000/35000** |
 
 These are **official VMware configuration maximums**.
 
