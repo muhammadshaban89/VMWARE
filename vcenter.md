@@ -116,7 +116,7 @@ Even 10 vCenters can run fine on the same host.
 
 # Practical Real‑World Answer
 
-### **Lab environment (like yours):**
+### **Lab environment :**
 You can run **2–4 vCenters** on a single ESXi host without issues.
 
 ### **Production environment:**
