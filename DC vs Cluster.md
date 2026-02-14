@@ -66,7 +66,7 @@ vCenter
 
 ---
 
-# **Real‑World Example (Your 3‑Host Lab)**
+# **Real‑World Example **
 
 ### **Datacenter:**
 `Lab-DC`
