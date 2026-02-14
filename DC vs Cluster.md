@@ -1,6 +1,4 @@
 
-# **The Clean, Simple Difference**
-
 ## **Datacenter (DC) = A Logical Container**
 A **Datacenter** is just an *organizational folder* in vCenter.
 
