@@ -131,18 +131,3 @@ All can communicate because they are on the same distributed port group.
 
 ---
 
-# Setup (3 ESXi Hosts)
-
-You should absolutely use:
-- **1 vDS**
-- **Multiple distributed port groups**
-- **Same uplinks on all hosts**
-
-This will give you:
-- Perfect VM communication  
-- Smooth vMotion  
-- Clean, consistent networking  
-- Zero manual configuration per host  
-
----
-
