@@ -1,5 +1,5 @@
 
-## 1. Clean network design for your 3‑host lab
+## 1. Clean network design for  3‑host lab
 
 **Assumptions:**
 
