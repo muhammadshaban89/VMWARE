@@ -136,3 +136,98 @@ Use a domain account with permission to join computers.
 Required ports: **TCP 88, 389, 636, 3268, 3269, 445, 464**
 
 ---
+
+
+ **once vCenter successfully joins the domain**, giving your `VCPLAB\Administrator` (or any AD user/group) permission to log in
+---
+
+# 🟦 **Step 1 — Add the Active Directory identity source in vCenter**
+After the domain join succeeds:
+
+1. Log in to vCenter using the **local SSO admin**:
+   ```
+   administrator@vsphere.local
+   ```
+2. Go to:
+   **Menu → Administration → Single Sign On → Configuration**
+3. Select **Identity Sources**
+4. Click **Add**
+5. Choose:
+   **Active Directory (Integrated Windows Authentication)**  
+   (This option appears ONLY after domain join)
+
+It should automatically detect:
+- Domain: `VCPLAB.com`
+- Forest: `VCPLAB.com`
+
+Click **Save**.
+
+Now vCenter can “see” your AD users and groups.
+
+---
+
+# 🟦 **Step 2 — Assign permissions to the AD Administrator**
+Now you give your AD user access to vCenter.
+
+1. Go to:
+   **Menu → Administration → Access Control → Global Permissions**
+2. Click **Add**
+3. In the user selector:
+   - Domain: **VCPLAB.COM**
+   - User: **Administrator**  
+     (or any AD group like `Domain Admins`)
+
+4. Assign a role:
+   - **Administrator** (full access)
+
+5. Check:
+   ✔ **Propagate to children**
+
+6. Click **OK**
+
+Now your AD Administrator has full vCenter permissions.
+
+---
+
+# 🟦 **Step 3 — Log in using AD credentials**
+Now you can log in to vCenter using:
+
+```
+VCPLAB\Administrator
+```
+or
+```
+Administrator@VCPLAB.com
+```
+
+Both will work.
+
+---
+
+# 🟦 **Recommended Best Practice**
+Instead of giving permissions to the single user `Administrator`, give permissions to the AD group:
+
+```
+VCPLAB\Domain Admins
+```
+
+This way:
+
+- Any domain admin can log in
+- You don’t need to modify vCenter permissions again
+- It follows VMware best practices
+
+---
+
+# 🟢 **Summary**
+After domain join:
+
+| Task | What to do |
+|------|------------|
+| Add identity source | AD (Integrated Windows Auth) |
+| Assign permissions | Global Permissions → Add → VCPLAB\Domain Admins |
+| Role | Administrator |
+| Login | VCPLAB\Administrator |
+
+
+---
