@@ -158,16 +158,16 @@ It ensures the VM is placed on storage that matches the policy’s rules.
 
 # ⭐ **Which Policy Should YOU Choose?**
 
-- **Normal VM → Management Storage Policy – Regular — *Pending***  
+- **Normal VM → Management Storage Policy – Regular —***  
 - **Large disk VM → Large — *Pending***  
-- **Encrypted VM → VM Encryption Policy — *Pending***  
-- **vSAN stretched cluster → Stretched / Stretched ESA — *Pending***  
+- **Encrypted VM → VM Encryption Policy ***  
+- **vSAN stretched cluster → Stretched / Stretched ESA***  
 - **Thin provisioning → Thin — *Pending***  
-- **Edge/single node → Single Node — *Pending***  
+- **Edge/single node → Single Node ***  
 
 If you’re unsure, choose:
 
-👉 **Management Storage Policy – Regular — *Pending***
+👉 **Management Storage Policy – Regular***
 
 It’s the safest default.
 
