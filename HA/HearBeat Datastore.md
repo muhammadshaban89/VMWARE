@@ -42,12 +42,6 @@ VMware requires:
 
 More is fine, but 2 is enough.
 
-In your cluster:
-- `new-NFS` → shared by 3 hosts  
-- `New-vSAN` → shared by 3 hosts  
-
-Perfect configuration.
-
 ---
 
 # ⭐ **Heartbeat Datastore Selection Policies**
