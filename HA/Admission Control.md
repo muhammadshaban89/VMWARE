@@ -13,7 +13,7 @@ Let’s go through each option in your screenshot.
 This defines **how many hosts can fail** while still guaranteeing that all VMs can restart on the remaining hosts.
 
 Example:  
-If you have **2 hosts**, the maximum value is **1** (as shown in your screenshot).
+If you have **2 hosts**, the maximum value is **1** 
 
 Meaning:  
 If 1 host fails, the other host must have enough reserved CPU & RAM to restart all VMs.
