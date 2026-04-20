@@ -23,7 +23,6 @@ If 1 host fails, the other host must have enough reserved CPU & RAM to restart a
 # 2️⃣ **Define host failover capacity by**
 This dropdown controls **how Admission Control calculates reserved resources**.
 
-You have selected:
 
 ### ✔ **Cluster Resource Percentage**
 This is the most flexible and recommended method.
