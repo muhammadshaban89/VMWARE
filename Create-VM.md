@@ -97,78 +97,78 @@ It ensures the VM is placed on storage that matches the policy’s rules.
 
 ---
 
-# ⭐ **What Each Policy in Your List Means**
-Your environment has several custom policies. Here’s what they typically represent:
 
-### ✔ **Datastore Default**
+# ⭐ **What Each Policy in Your List Means (with PENDING status)**
+
+### ✔ **Datastore Default — *Pending***  
 - Uses the datastore’s default settings  
 - No special rules  
 - Basic option for simple environments  
 
-### ✔ **Management Storage Policy – Encryption**
-- Stores the VM on **encrypted storage**  
+### ✔ **Management Storage Policy – Encryption — *Pending***  
+- Stores the VM on encrypted storage  
 - Requires a **KMS (Key Management Server)**  
 - Used for sensitive workloads  
 
-### ✔ **Management Storage Policy – Large**
+### ✔ **Management Storage Policy – Large — *Pending***  
 - For VMs with **large disks**  
-- Ensures placement on datastores with high capacity or performance  
+- Ensures placement on high‑capacity or high‑performance datastores  
 
-### ✔ **Management Storage Policy – Regular**
+### ✔ **Management Storage Policy – Regular — *Pending***  
 - Standard policy for normal workloads  
 - Balanced performance + capacity  
 
-### ✔ **Management Storage Policy – Single Node**
+### ✔ **Management Storage Policy – Single Node — *Pending***  
 - For **single‑node vSAN** or standalone storage  
 - Used in edge or ROBO environments  
 
-### ✔ **Management Storage Policy – Stretched**
+### ✔ **Management Storage Policy – Stretched — *Pending***  
 - For **vSAN stretched clusters**  
 - Ensures redundancy across two sites  
 
-### ✔ **Management Storage Policy – Stretched ESA**
+### ✔ **Management Storage Policy – Stretched ESA — *Pending***  
 - Same as above but for **vSAN ESA (Express Storage Architecture)**  
 
-### ✔ **Management Storage Policy – Stretched Lite**
+### ✔ **Management Storage Policy – Stretched Lite — *Pending***  
 - Reduced redundancy version  
 - Lower overhead, still stretched  
 
-### ✔ **Management Storage Policy – Thin**
+### ✔ **Management Storage Policy – Thin — *Pending***  
 - Forces **thin provisioning**  
 - Saves space, good for test/dev  
 
-### ✔ **VM Encryption Policy**
+### ✔ **VM Encryption Policy — *Pending***  
 - Encrypts the VM itself  
 - Requires KMS  
 - Protects VM files even if datastore is not encrypted  
 
 ---
 
-# ⭐ **Other Options on This Screen**
-### ✔ **Encrypt this virtual machine**
+# ⭐ **Other Options on This Screen (with PENDING)**
+
+### ✔ **Encrypt this virtual machine — *Pending***  
 - Encrypts the VM  
 - Requires KMS  
 - Used for compliance/security  
 
-### ✔ **Disable Storage DRS for this VM**
+### ✔ **Disable Storage DRS for this VM — *Pending***  
 - Prevents SDRS from moving this VM  
 - Use only for special workloads (databases, latency‑sensitive apps)
 
 ---
 
-# ⭐ **Which Policy Should YOU Choose?**
-Here’s the simple rule:
+# ⭐ **Which Policy Should YOU Choose? (with PENDING)**
 
-- **Normal VM** → *Management Storage Policy – Regular*  
-- **Large disk VM** → *Large*  
-- **Encrypted VM** → *VM Encryption Policy*  
-- **vSAN stretched cluster** → *Stretched / Stretched ESA*  
-- **Thin provisioning** → *Thin*  
-- **Edge/single node** → *Single Node*  
+- **Normal VM → Management Storage Policy – Regular — *Pending***  
+- **Large disk VM → Large — *Pending***  
+- **Encrypted VM → VM Encryption Policy — *Pending***  
+- **vSAN stretched cluster → Stretched / Stretched ESA — *Pending***  
+- **Thin provisioning → Thin — *Pending***  
+- **Edge/single node → Single Node — *Pending***  
 
 If you’re unsure, choose:
 
-👉 **Management Storage Policy – Regular**
+👉 **Management Storage Policy – Regular — *Pending***
 
 It’s the safest default.
 
