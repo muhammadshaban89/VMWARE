@@ -85,6 +85,76 @@ When you put a host in maintenance mode:
 
 ---
 
+
+
+
+# ⭐ 1. Fully Automated DRS
+This means:
+
+> vCenter automatically moves VMs between hosts using vMotion to balance CPU and memory.
+
+You don’t need to approve anything — DRS handles it.
+
+This is the recommended mode for almost all clusters.
+
+---
+
+# ⭐ 2. Migration Threshold (Level 3)
+This slider controls **how aggressively** DRS moves VMs.
+
+### Levels:
+- **1–2 = Conservative**  
+  Only moves VMs when imbalance is severe  
+- **3 = Default / Balanced**  
+  Moves VMs when moderately imbalanced  
+- **4–5 = Aggressive**  
+  Moves VMs frequently to keep hosts perfectly balanced  
+
+Your setting (**Level 3**) is ideal for:
+
+- Stable workloads  
+- Production clusters  
+- Avoiding unnecessary vMotions  
+
+---
+
+# ⭐ 3. Predictive DRS (Disabled)
+Predictive DRS uses **vRealize Operations Manager (vROps)** to predict future load and move VMs *before* a host becomes overloaded.
+
+You don’t have it enabled — which is fine unless you use vROps.
+
+---
+
+# ⭐ 4. VM Automation (Enabled)
+This means:
+
+> All VMs follow the cluster’s automation level (Fully Automated).
+
+If this was disabled, you could override automation per VM.
+
+---
+
+# ⭐ 5. VM Device Stun Time Limit (Disabled)
+This is an advanced setting that prevents long stun times during Storage vMotion.
+
+Most environments leave this **disabled** unless they have very large disks.
+
+---
+
+# ⭐ Is Your DRS Configuration Good?
+Yes — your settings are **perfect for a normal production cluster**:
+
+- Fully Automated → Best for balancing  
+- Threshold 3 → Balanced, not too aggressive  
+- Predictive DRS off → Fine unless you use vROps  
+- VM Automation on → Correct  
+- Stun limit off → Normal  
+
+Nothing is misconfigured.
+
+---
+
+
 # ⭐ Simple Summary
 **DRS = Automatic compute load balancing using vMotion.**  
 It keeps your cluster healthy, balanced, and efficient.
