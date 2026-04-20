@@ -31,9 +31,57 @@ It means:
 - vSphere calculates how much CPU & RAM must be reserved  
 - Based on the number of host failures you selected  
 
-Other methods (for your awareness):
-- **Slot Policy** (old method, not recommended)
-- **Dedicated Failover Hosts** (rarely used)
+### ✔ Slot Policy (Old Method — Not Recommended)
+🔹 What it is
+Slot Policy calculates failover capacity using fixed “slots” based on VM CPU and memory reservations.
+A slot =
+- The largest CPU reservation of any VM in the cluster
+- The largest memory reservation of any VM in the cluster
+Then HA calculates how many such slots each host can hold.
+Example:
+If the largest VM reservation is:
+- 2 GHz CPU
+- 4 GB RAM
+Then every VM is treated as if it needs 2 GHz + 4 GB, even if most VMs are tiny.
+This leads to massive over‑reservation.
+
+🔹 Why it’s not recommended
+- One VM with a large reservation inflates slot size
+- Cluster appears “full” even when resources are free
+- Very conservative and wastes capacity
+- Hard to predict and troubleshoot
+VMware replaced this with Cluster Resource Percentage, which is far more flexible and realistic.
+
+🔹 When Slot Policy is still used
+Almost never — only in:
+- Very old environments
+- Environments with strict reservation-based workloads
+- Legacy compliance requirements
+For modern clusters: avoid it.
+
+### ✔ Dedicated Failover Hosts (Rarely Used)
+🔹 What it is
+You designate one or more ESXi hosts as “failover hosts.”
+These hosts run no VMs during normal operation.
+If a host fails:
+- HA restarts VMs only on the dedicated failover host(s)
+
+🔹 Why it’s rarely used
+- Wastes hardware (failover hosts sit idle)
+- No load balancing
+- No resource sharing
+- Not efficient for modern clusters
+- Doesn’t scale well
+Most environments prefer:
+- Cluster Resource Percentage
+- vSphere DRS for balancing
+
+🔹 When Dedicated Failover Hosts are used
+- Highly regulated environments
+- Mission-critical workloads
+- Environments where failover behavior must be deterministic
+- Clusters with very few hosts (e.g., 2-node ROBO)
+But even then, VMware recommends Percentage-based Admission Control instead.
 
 ---
 
