@@ -144,20 +144,19 @@ It ensures the VM is placed on storage that matches the policy’s rules.
 
 ---
 
-# ⭐ **Other Options on This Screen (with PENDING)**
 
-### ✔ **Encrypt this virtual machine — *Pending***  
+### ✔ **Encrypt this virtual machine***  
 - Encrypts the VM  
 - Requires KMS  
 - Used for compliance/security  
 
-### ✔ **Disable Storage DRS for this VM — *Pending***  
+### ✔ **Disable Storage DRS for this VM***  
 - Prevents SDRS from moving this VM  
 - Use only for special workloads (databases, latency‑sensitive apps)
 
 ---
 
-# ⭐ **Which Policy Should YOU Choose? (with PENDING)**
+# ⭐ **Which Policy Should YOU Choose?**
 
 - **Normal VM → Management Storage Policy – Regular — *Pending***  
 - **Large disk VM → Large — *Pending***  
