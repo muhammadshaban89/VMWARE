@@ -139,20 +139,15 @@ This is an advanced setting that prevents long stun times during Storage vMotion
 
 Most environments leave this **disabled** unless they have very large disks.
 
----
-
-# ⭐ Is Your DRS Configuration Good?
-Yes — your settings are **perfect for a normal production cluster**:
-
-- Fully Automated → Best for balancing  
-- Threshold 3 → Balanced, not too aggressive  
-- Predictive DRS off → Fine unless you use vROps  
-- VM Automation on → Correct  
-- Stun limit off → Normal  
-
-Nothing is misconfigured.
+During vMotion or Storage vMotion, VMware must briefly freeze the VM to finalize the migration.
+This freeze is called a stun.
+• 	Normal stun: 1–50 ms
+• 	Long stun: hundreds of ms to several seconds
+• 	Very long stun: 10+ seconds (bad)
+If the stun is too long, users notice lag, apps freeze, or the VM becomes unresponsive.
 
 ---
+
 
 
 # ⭐ Simple Summary
