@@ -149,6 +149,59 @@ If the stun is too long, users notice lag, apps freeze, or the VM becomes unresp
 ---
 
 
+# ⭐ What Is “Passthrough VM DRS Automation”?
+This option controls whether **DRS is allowed to move (vMotion) VMs that have PCI passthrough devices attached**.
+
+A VM with passthrough normally **cannot be vMotioned**, because the physical PCI device is tied to a specific ESXi host.
+
+So this setting tells DRS:
+
+> **Should I try to automate placement and balancing for VMs that have passthrough devices?**
+
+---
+
+# ⭐ Why Passthrough VMs Are Special
+When a VM uses DirectPath I/O:
+
+- The VM is directly connected to a physical PCI device  
+- That device exists only on one host  
+- vMotion is **not possible**  
+- DRS cannot move the VM to another host  
+
+Because of this, DRS normally **ignores** these VMs.
+
+---
+
+# ⭐ What This Setting Actually Does
+### ✔ **Enabled**
+DRS will:
+- Consider passthrough VMs during initial placement  
+- Try to place them on a host that has the required PCI device  
+- But still **cannot vMotion them**  
+- So load balancing is limited  
+
+### ✔ **Disabled**
+DRS will:
+- Completely ignore passthrough VMs  
+- Not try to place or balance them  
+- You must manually choose the host  
+
+---
+
+# ⭐ When Should You Enable It?
+Enable it if:
+
+- You have **multiple hosts** with the same PCI passthrough device  
+- You want DRS to automatically place the VM on a compatible host  
+- You want DRS to avoid hosts that don’t have the device  
+
+Disable it if:
+
+- Only one host has the passthrough device  
+- You want full manual control  
+- You don’t want DRS to interfere with placement  
+
+---
 
 # ⭐ Simple Summary
 **DRS = Automatic compute load balancing using vMotion.**  
