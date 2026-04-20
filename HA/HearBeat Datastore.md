@@ -45,7 +45,6 @@ More is fine, but 2 is enough.
 ---
 
 # ⭐ **Heartbeat Datastore Selection Policies**
-You saw 3 options in your screenshot. Here’s what they mean:
 
 ### 1️⃣ **Automatically select datastores accessible from the hosts**
 - vCenter picks the best 2 datastores  
