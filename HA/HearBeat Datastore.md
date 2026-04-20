@@ -59,14 +59,14 @@ More is fine, but 2 is enough.
 - Risky if you select only 1 datastore  
 
 ### 3️⃣ **Use datastores from the specified list and complement automatically if needed**
-- You choose preferred datastores  
+- You can choose preferred datastores  
 - vCenter adds more if required  
 - Best balance of control + safety  
 
 ---
 
 # ⭐ **Which Option Should You Use?**
-For your environment (NFS + vSAN), the best choice is:
+
 
 ### ✔ **Use datastores from the specified list and complement automatically if needed**
 
