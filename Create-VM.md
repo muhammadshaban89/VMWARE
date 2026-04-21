@@ -362,4 +362,104 @@ Since your lab is:
 ---
 
 
+# ⭐ **Disk Mode Options Explained**
+
+## ✔ **1. Dependent (Default & Recommended)**
+This is the **normal** disk mode.
+
+### Behavior:
+- Disk **respects snapshots**
+- When you take a snapshot → disk state is saved
+- When you revert → disk rolls back to snapshot state
+
+### Use cases:
+- Almost all VMs  
+- vCenter, ESXi nested hosts, DC, SAN  
+- Any VM where you want snapshots to work
+
+👉 **This is the mode you should use 99% of the time.**
+
+---
+
+## ✔ **2. Independent – Persistent**
+This mode **ignores snapshots**, but **keeps all changes permanently**.
+
+### Behavior:
+- Snapshots DO NOT include this disk  
+- Changes are written directly to disk  
+- Reverting a snapshot does NOT revert this disk
+
+### Use cases:
+- Database disks  
+- Log disks  
+- High‑I/O disks  
+- Disks that must never roll back  
+- Backup repositories  
+- SAN/NFS/iSCSI storage VMs
+
+👉 Good when you want **consistent data** even if you revert snapshots.
+
+---
+
+## ✔ **3. Independent – Nonpersistent**
+This mode **ignores snapshots**, and **throws away all changes** when the VM powers off.
+
+### Behavior:
+- All writes go to a temporary redo log  
+- When VM powers off → all changes are deleted  
+- Disk returns to original state every boot
+
+### Use cases:
+- Training labs  
+- Kiosk VMs  
+- Malware testing  
+- Disposable VMs  
+- Golden images
+
+👉 Not recommended for production or nested ESXi labs.
+
+---
+
+# ⭐ **Which Disk Mode Should YOU Use in Your Lab?**
+
+Based on your setup:
+
+- VMware Workstation  
+- Nested ESXi hosts  
+- SAN VM  
+- vCenter  
+- Domain Controller  
+
+Here is the correct choice for each VM:
+
+### ✔ **ESXi Hosts → Dependent**
+Snapshots are useful for testing.
+
+### ✔ **vCenter → Dependent**
+You want snapshots for rollback.
+
+### ✔ **Domain Controller → Dependent**
+Snapshots are okay in labs.
+
+### ✔ **SAN VM → Independent – Persistent**
+Why?
+- You do NOT want SAN data to revert when you revert snapshots  
+- NFS/iSCSI storage must stay consistent  
+- Prevents datastore corruption  
+
+### ✔ **Test VMs → Dependent or Nonpersistent**
+Depending on whether you want changes saved.
+
+---
+
+# ⭐ Summary Table
+
+| Disk Mode | Snapshots | Data Saved? | Best For |
+|-----------|-----------|-------------|----------|
+| **Dependent** | Yes | Yes | Normal VMs, labs |
+| **Independent – Persistent** | No | Yes | SAN, DB, logs |
+| **Independent – Nonpersistent** | No | No | Disposable VMs |
+
+
+
 
