@@ -325,25 +325,6 @@ If datastore becomes full → VMs can freeze.
 
 ---
 
-# ⭐ **Which Option Should YOU Use in Your Lab?**
-
-Since your lab is:
-
-- VMware Workstation  
-- Nested ESXi hosts  
-- SAN VM  
-- vCenter  
-- Limited physical storage  
-
-👉 **Use THIN Provisioning for almost all VMs.**
-
-### Recommended:
-- **ESXi hosts → Thin**
-- **vCenter → Thin**
-- **Domain Controller → Thin**
-- **SAN VM → Thin**
-- **Test VMs → Thin**
-
 ### Only use Eager Zeroed Thick if:
 - You are testing performance  
 - You are building a vSAN cluster  
