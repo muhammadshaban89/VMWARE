@@ -244,8 +244,11 @@ is fine for quick installs.
 # ⭐ **Disk Provisioning Options Explained**
 ---------------
 ⭐ What Does “Zeroing Blocks” Mean?
+
 A virtual disk is made up of many storage blocks.
 Zeroing means:
+
+    Writing zeros (0x00) to every block on the disk before it is used.
 
 So instead of random data, the disk starts with clean, empty blocks.
 
