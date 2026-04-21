@@ -12,12 +12,12 @@ If one host has newer CPU features than another, vCenter blocks:
 - Power‑on  
 - DRS placement  
 
-This is exactly the type of error you’re seeing.
+
 
 ---
 
 # ⭐ Why YOU Need EVC in a Nested Lab
-Your nested ESXi hosts are running on **different physical CPU baselines** depending on:
+when Your nested ESXi hosts are running on **different physical CPU baselines** depending on:
 
 - VMware Workstation CPU exposure  
 - BIOS virtualization settings  
@@ -42,7 +42,7 @@ This is exactly why you get different behavior.
 ---
 
 # ⭐ What You Should Do
-Since your cluster uses **Intel CPUs**, choose:
+
 
 ### ✔ **Enable EVC for Intel® Hosts**
 
@@ -81,5 +81,3 @@ It should now work because all hosts appear CPU‑compatible.
 
 ---
 
-
-If you want, I can tell you **exactly which EVC level your hosts support** based on your CPU model.
