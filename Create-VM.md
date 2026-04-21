@@ -461,5 +461,160 @@ Depending on whether you want changes saved.
 | **Independent – Nonpersistent** | No | No | Disposable VMs |
 
 
+--------------
+
+# ⭐ **Where the virtual disk (VMDK) will be stored.**
+
+That’s all.  
+It does **not** affect performance, snapshots, provisioning, or disk behavior — it only controls the **datastore path** where the disk file lives.
+
+
+---
+
+# ⭐ **Location Options Explained**
+
+## ✔ **1. Store with the virtual machine (Recommended)**
+This means:
+
+- The VMDK disk file is stored **in the same folder** as the VM  
+- Example path:  
+  `/vmfs/volumes/GoldSan/VM-Name/VM-Name.vmdk`
+
+### Why this is good:
+- Clean and organized  
+- Easy to move or copy the VM  
+- No confusion about where disks are  
+- Best for labs and nested ESXi setups  
+- Works perfectly with snapshots and backups  
+
+👉 **This is the correct choice for your lab unless you have a specific reason to separate disks.**
+
+---
+
+## ✔ **2. Browse…**
+This lets you choose **another datastore or folder** to store the disk.
+
+### When to use:
+- You want OS disk on one datastore and data disk on another  
+- You want to test performance differences (NFS vs iSCSI)  
+- You want to simulate production storage separation  
+- You want to store large disks on cheaper/slower storage  
+- You want to put SAN VM disks on a dedicated datastore  
+
+### Example:
+- VM files on `GoldSan`  
+- Data disk on `NFS-Share`  
+- Logs on `iSCSI-Target`  
+
+This is more advanced and only needed for specific scenarios.
+
+---
+
+# ⭐ **Which Location Should YOU Choose in Your Lab?**
+
+Given your setup:
+
+- VMware Workstation  
+- Nested ESXi hosts  
+- SAN VM  
+- vCenter  
+- Domain Controller  
+- Limited storage  
+
+👉 **Choose: Store with the virtual machine**
+
+This keeps everything simple, stable, and easy to manage.
+
+---
+
+# ⭐ Summary
+
+| Location Option | Meaning | Best For |
+|-----------------|---------|----------|
+| **Store with the virtual machine** | Disk stored in same folder as VM | Labs, nested ESXi, simple setups |
+| **Browse…** | Choose another datastore/folder | Advanced setups, performance testing |
+
+---
+
+
+
+# ⭐ **Disk Sharing Options Explained**
+
+## ✔ **1. Unspecified**
+This simply means:
+
+- VMware will use the **default** behavior  
+- Default = **No sharing**
+
+It’s the same as choosing **No sharing**, just not explicitly set.
+
+👉 Safe to leave as-is.
+
+---
+
+## ✔ **2. No sharing (Recommended for your lab)**
+This means:
+
+- **Only one VM** can use this disk at a time  
+- If another VM tries to attach the same disk → VMware blocks it  
+- Prevents corruption  
+- Works with snapshots  
+- Works with all disk modes  
+
+### Use cases:
+- Normal VMs  
+- ESXi nested hosts  
+- vCenter  
+- Domain Controller  
+- SAN VM  
+- Any VM that does NOT need shared disks  
+
+👉 **This is the correct choice for 99% of your VMs.**
+
+---
+
+## ✔ **3. Multi-writer (Advanced, special use only)**
+This allows **multiple VMs to write to the same VMDK at the same time**.
+
+This is extremely dangerous unless you know what you’re doing.
+
+### Use cases:
+- VMware vSAN (physical clusters)  
+- Oracle RAC clusters  
+- Microsoft Failover Clustering (shared disk)  
+- High-availability database clusters  
+- Shared-disk cluster testing  
+
+### Requirements:
+- Disk must be **Thick Provision Eager Zeroed**  
+- Disk mode must be **Independent – Persistent**  
+- Snapshots are **disabled**  
+- Only supported on **VMFS** datastores  
+- Not supported on NFS  
+
+👉 **Do NOT use Multi-writer in your nested lab unless you are specifically building a shared-disk cluster.**
+
+---
+
+### ✔ **Use “No sharing” for all VMs.**
+
+### ❗ Never use Multi-writer unless:
+- You are building Oracle RAC  
+- You are building Windows Failover Cluster with shared disks  
+- You know exactly how cluster shared disks work  
+
+---
+
+# ⭐ Summary Table
+
+| Sharing Option | Meaning | Best For |
+|----------------|---------|----------|
+| **Unspecified** | Defaults to No sharing | Normal VMs |
+| **No sharing** | Only one VM can use disk | Your entire lab |
+| **Multi-writer** | Multiple VMs write same disk | Advanced clustering only |
+
+---
+
+
 
 
