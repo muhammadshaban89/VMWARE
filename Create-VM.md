@@ -351,7 +351,7 @@ Since your lab is:
 
 ---
 
-# ⭐ Summary (Simple)
+# ⭐ Summary
 
 | Option | Space | Performance | Best For |
 |--------|--------|--------------|-----------|
