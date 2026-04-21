@@ -176,4 +176,73 @@ This stores the template in the **Content Library**.
 | **Clone to Template** | Template | Stays a VM | Golden images |
 | **Clone as Template to Library** | Library Template | Stays a VM | Automation, sharing |
 
+------------------------
+
+# ⭐ What “Annotation” Means
+It’s a **text note** stored inside the OVF metadata.
+
+You can write anything that helps you or others understand:
+
+- What this VM/template is for  
+- OS version  
+- Installed packages  
+- Purpose of the VM  
+- Who created it  
+- When it was exported  
+- Any special configuration  
+
+It’s like a comment or documentation field.
+
+---
+
+# ⭐ Does Annotation Affect the VM?
+No.
+
+- It does **not** change VM settings  
+- It does **not** change performance  
+- It does **not** change hardware  
+- It does **not** change the OVF structure  
+
+It’s purely informational.
+
+---
+
+# ⭐ When Should You Use It?
+Use annotations when:
+
+- You plan to **share** the OVF with others  
+- You want to **remember** what this template contains  
+- You want to document **OS version** or **patch level**  
+- You want to track **template versions**  
+
+In a lab, it’s optional — but helpful.
+
+---
+
+# ⭐ Examples of Good Annotations
+
+### Example 1 — Linux Base Image
+```
+CentOS 7 minimal base image.
+VMware Tools installed.
+Updated to April 2026 patches.
+Used for Apache and Nginx deployments.
+```
+
+### Example 2 — Application Template
+```
+Apache-VM template.
+Preconfigured with httpd, firewall rules, and monitoring agent.
+Clean snapshot before export.
+```
+
+### Example 3 — Version Tracking
+```
+Template v1.3
+Created by Muhammad
+Updated kernel and security patches
+```
+
+---
+
 
