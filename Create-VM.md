@@ -97,7 +97,7 @@ It ensures the VM is placed on storage that matches the policy’s rules.
 
 ---
 
-# ⭐ **What Each VM Storage Policy Means (Clean Version)**
+# ⭐ **What Each VM Storage Policy Means**
 
 ### ✔ **Datastore Default**  
 - Uses the datastore’s default settings  
