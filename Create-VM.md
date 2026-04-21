@@ -253,12 +253,19 @@ Zeroing means:
 So instead of random data, the disk starts with clean, empty blocks.
 
 ⭐ Why Zero Blocks?
+
 Zeroing blocks is done for:
+
 ✔ Security
+
 Old data from the datastore cannot leak into a new VM.
+
 ✔ Performance (for some disk types)
+
 Some storage systems perform better when blocks are pre‑zeroed.
+
 ✔ vSAN / RAID consistency
+
 Zeroed blocks help with parity and checksum calculations.
 
 
