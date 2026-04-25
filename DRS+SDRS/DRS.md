@@ -209,8 +209,11 @@ It keeps your cluster healthy, balanced, and efficient.
 
 ---
 
+Additional Options:
+--------
 
 # 🧩 **1. VM Distribution**
+
 This setting tells DRS to **spread VMs evenly across hosts**, focusing on *availability* rather than performance.
 
 ### ✔ What it does
