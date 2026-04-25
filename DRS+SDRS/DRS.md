@@ -208,3 +208,236 @@ Disable it if:
 It keeps your cluster healthy, balanced, and efficient.
 
 ---
+
+
+# 🧩 **1. VM Distribution**
+This setting tells DRS to **spread VMs evenly across hosts**, focusing on *availability* rather than performance.
+
+### ✔ What it does
+- Forces a more even **VM count** across hosts  
+- Prevents too many VMs from piling onto one host  
+- Helps avoid “all eggs in one basket” situations  
+- Useful for licensing, compliance, or predictable host usage
+
+### ✖ Side effects
+- VMware warns: **“may see a degradation of DRS when utilizing this setting.”**  
+  Meaning:
+  - DRS may ignore performance‑based decisions  
+  - You may get unnecessary vMotions  
+  - Hosts may run hotter even if others are idle  
+  - Performance balancing becomes weaker
+
+### When to enable
+- VDI clusters  
+- Environments where VM count per host matters  
+- When you want predictable distribution for licensing  
+- When availability > performance
+
+### When to avoid
+- Performance‑sensitive clusters  
+- Clusters with mixed hardware  
+- High‑density compute clusters  
+- Database or latency‑sensitive workloads
+
+---
+
+# 🧩 **2. CPU Over‑Commitment**
+This setting controls the **maximum allowed vCPU:pCPU ratio** for VM placement.
+
+### ✔ What it does
+- Lets you define a ratio like:  
+  - **4:1** → 4 vCPUs per 1 physical core  
+  - **8:1** → 8 vCPUs per 1 physical core  
+- DRS will **block VM placement** if the ratio would be exceeded  
+- Prevents CPU saturation  
+- Ensures predictable performance  
+- Helps avoid CPU Ready spikes
+
+### ✖ Side effects
+- If ratio is too strict (e.g., 1:1), you may block VM power‑on  
+- If ratio is too high, you may cause CPU contention  
+- Can reduce consolidation ratio
+
+### When to enable
+- Production clusters  
+- Database servers  
+- Application servers  
+- Latency‑sensitive workloads  
+- When you want to prevent over‑provisioning
+
+### When to disable
+- Test/dev  
+- VDI  
+- Environments with high consolidation  
+- When you want maximum density
+
+---
+
+# 🧩 **3. Scalable Shares**
+This setting changes how **resource pool shares** behave as the cluster grows or shrinks.
+
+### ✔ What it does
+- Automatically scales shares based on the number of VMs  
+- Prevents share imbalance  
+- Ensures fair resource distribution  
+- Makes resource pools behave consistently as VMs are added/removed  
+- Recommended by VMware for most environments
+
+### ✖ Side effects
+- None significant  
+- Only avoid if you have a very custom share design
+
+### When to enable
+- Almost always  
+- Large clusters  
+- Clusters with many resource pools  
+- Environments where VMs are frequently added/removed
+
+### When to disable
+- Rare cases with strict manual share tuning  
+- Legacy clusters with fixed share hierarchy
+
+---
+
+# 📌 **Summary Table**
+
+| Setting | What It Controls | Best For | Avoid When |
+|--------|------------------|----------|------------|
+| **VM Distribution** | Even VM spread across hosts | VDI, availability-focused | Performance-sensitive clusters |
+| **CPU Over-Commitment** | Max vCPU:pCPU ratio | Production, DB, latency-sensitive | Test/dev, high-density |
+| **Scalable Shares** | Auto-scaling resource pool shares | Most environments | Custom share designs |
+
+---
+
+
+# ⚡ **vSphere DPM (Distributed Power Management) — What It Is**
+DPM automatically **powers ESXi hosts ON or OFF** based on cluster load.
+
+- When load is low → DPM powers off hosts to save energy  
+- When load increases → DPM powers hosts back on  
+
+It works together with DRS and HA.
+
+---
+
+# 🧩 **Power Management Options (DPM Settings)**
+
+These are the settings you see under **Cluster → Configure → vSphere DRS → Power Management**.
+
+---
+
+## **1. Enable DPM**
+This toggle turns Distributed Power Management ON or OFF.
+
+### ✔ When Enabled:
+- vCenter can automatically consolidate VMs onto fewer hosts  
+- Idle hosts can be placed into **standby mode**  
+- Hosts can be powered on when needed  
+
+### ✖ When Disabled:
+- No host power automation  
+- All hosts stay powered on all the time  
+
+---
+
+## **2. Automation Level**
+Controls how DPM behaves.
+
+### **A. Manual Mode**
+- vCenter *recommends* host power-on/off actions  
+- You must approve them  
+- Good for testing DPM behavior before going automatic
+
+### **B. Automatic Mode**
+- vCenter automatically powers hosts on/off  
+- No approval needed  
+- Best for stable, predictable workloads
+
+---
+
+## **3. DPM Threshold Slider**
+This slider controls how aggressively DPM consolidates workloads.
+
+### Levels:
+- **Most Conservative**  
+  - Only powers off hosts when cluster is *very* underutilized  
+  - Minimal vMotions  
+  - Safest for production
+
+- **Moderate**  
+  - Balanced consolidation  
+  - Good for general workloads
+
+- **Most Aggressive**  
+  - Powers off hosts frequently  
+  - Maximum energy savings  
+  - More vMotions  
+  - Not recommended for latency‑sensitive workloads
+
+---
+
+## **4. Host Power Management (BIOS/ESXi)**
+This is separate from DPM but related.
+
+### ESXi Power Policy Options:
+- **High Performance**  
+  - No CPU power saving  
+  - Best for latency‑sensitive workloads  
+  - Higher power usage
+
+- **Balanced** (Default)  
+  - ESXi dynamically adjusts CPU frequency  
+  - Good balance of performance and power
+
+- **Low Power**  
+  - Maximum power savings  
+  - Lower performance  
+  - Rarely used in production
+
+---
+
+## **5. Host Standby Configuration**
+DPM uses **standby mode** to power off hosts.
+
+You must configure:
+- **IPMI / iLO / DRAC**  
+- **Wake-on-LAN** (if supported)  
+- **vCenter permissions**  
+
+If these are not configured correctly:
+- DPM will fail to power hosts on  
+- You will see DPM errors in vCenter
+
+---
+
+# 🧠 **How DPM Works Internally**
+1. DRS analyzes cluster load  
+2. If load is low → DRS migrates VMs to fewer hosts  
+3. DPM powers off the empty hosts  
+4. When load increases → DPM powers hosts back on  
+5. DRS redistributes VMs  
+
+This is why DRS and DPM must be enabled together.
+
+---
+
+# 📌 **Best‑Practice Recommendations**
+For production clusters:
+
+### ✔ Recommended:
+- **Enable DPM**  
+- **Automation: Manual (initially), then Automatic**  
+- **Threshold: Conservative or Moderate**  
+- **Host Power Policy: High Performance**  
+- Ensure **IPMI/iLO/DRAC** is configured correctly  
+
+### ✖ Avoid:
+- Aggressive DPM on clusters with:  
+  - Databases  
+  - Real‑time apps  
+  - High‑latency sensitivity  
+  - Large VMs  
+  - vSAN clusters (DPM is NOT recommended for vSAN)
+
+---
+
