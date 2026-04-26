@@ -2,17 +2,6 @@
 
 It works by masking newer CPU instructions and exposing only a common baseline.
 
-
----
-
-# 🧩 What EVC Actually Does  
-
-EVC ensures that **all hosts in a cluster present the same CPU instruction set** to virtual machines.  
-
-This allows vMotion to work even when hosts have different CPU generations.  
-
-VMware confirms that EVC enforces a **CPUID baseline** so VMs see a uniform CPU feature set.  
-
 🧩 **CPU instructions**
 
 are the low‑level operations that a processor is physically capable of performing.
@@ -42,6 +31,16 @@ A CPU instruction is a single operation the processor can execute, such as:
 Every CPU generation adds new instructions that older CPUs do not have.
 
 ---
+
+
+# 🧩 What EVC Actually Does  
+
+EVC ensures that **all hosts in a cluster present the same CPU instruction set** to virtual machines.  
+
+This allows vMotion to work even when hosts have different CPU generations.  
+
+VMware confirms that EVC enforces a **CPUID baseline** so VMs see a uniform CPU feature set.  
+
 
 # 🧠 How EVC Works (Internals)  
 EVC uses the CPU’s **CPUID** interface to detect supported instruction sets (SSE4.2, AVX, AES‑NI, etc.).  
