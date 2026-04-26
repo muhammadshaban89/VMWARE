@@ -96,23 +96,30 @@ You must set EVC to **Ivy Bridge** so both hosts match.
 ---
 
 # 🧩 Per‑VM EVC (Important)  
+
 VMware explains that Per‑VM EVC applies EVC at the **VM level**, not the cluster.  
 
 How Per‑VM EVC Works?
+
 Per‑VM EVC sets a minimum CPU feature requirement for that VM.
+
 This requirement must be met by any host the VM runs on.
+
 VMware states:
+
 • 	Per‑VM EVC is a VM attribute, not a cluster attribute.
 • 	It allows VMs to migrate across clusters with different CPU generations.
 • 	It can be higher than the cluster EVC mode.
 • 	But the VM can only power on or vMotion to hosts that support that higher baseline.
 
 🧩 Detailed Example
+
 Cluster Hosts:
 • 	Host A → Sandy Bridge
 • 	Host B → Ivy Bridge
 • 	Host C → Haswell
 Cluster EVC = Sandy Bridge
+
 This ensures:
 • 	All hosts can join the cluster
 • 	All VMs can vMotion between all hosts (if they use Sandy Bridge features only)
