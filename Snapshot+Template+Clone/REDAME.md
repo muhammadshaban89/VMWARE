@@ -103,5 +103,3 @@ When cloning to a **Content Library**, you can choose:
 
 ---
 
-- How snapshots affect performance  
-- Best practices for templates and golden images
