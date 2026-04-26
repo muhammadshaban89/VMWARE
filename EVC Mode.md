@@ -1,5 +1,6 @@
-**EVC (Enhanced vMotion Compatibility) standardizes CPU features across ESXi hosts so VMs can vMotion between different CPU generations without errors. It works by masking newer CPU instructions and exposing only a common baseline.**  
-Below is the **deep, detailed, example‑driven explanation** you asked for, grounded in VMware documentation.  
+**EVC (Enhanced vMotion Compatibility) standardizes CPU features across ESXi hosts so VMs can vMotion between different CPU generations without errors. 
+
+It works by masking newer CPU instructions and exposing only a common baseline.**  
 
 
 ---
