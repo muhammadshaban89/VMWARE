@@ -184,9 +184,7 @@ So **41xx < 42xx < 53xx**.
 
 ---
 
-# 🧩 **Real Example (Your Question)**
-
-You asked:
+# 🧩 **Real Example**
 
 > How do we know Ivy Bridge is the oldest?
 
@@ -211,8 +209,6 @@ It will show:
 - Skylake = NOT supported by Ivy Bridge or Haswell hosts  
 
 So the **highest baseline that all hosts support** is Ivy Bridge.
-
-That’s how you know.
 
 ---
 
