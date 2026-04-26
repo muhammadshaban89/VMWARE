@@ -4,8 +4,9 @@ It is different from “Delete Snapshot,” which removes a snapshot normally.
 
 Consolidation is used only when VMware detects orphaned or redundant delta disks. 
 
+---
 
-# 🟦 **1. Base Disk (Parent Disk)**
+**1. Base Disk (Parent Disk)**
 The **base disk** is the *original, main virtual disk* of the VM.
 
 Example:
@@ -25,7 +26,7 @@ Think of the base disk as the **root** of the VM’s storage.
 
 ---
 
-# 🟧 **2. Delta Disk (Snapshot Disk)**
+**2. Delta Disk (Snapshot Disk)**
 A **delta disk** is created when you take a snapshot.
 
 Example:
@@ -36,7 +37,7 @@ VMname-000002.vmdk
 
 A delta disk stores **only the changes** made after the snapshot was taken.
 
-### ✔ Characteristics of Delta Disks
+✔ Characteristics of Delta Disks
 - Created automatically when a snapshot is taken  
 - Stores *differences*, not full data  
 - Grows over time  
@@ -47,7 +48,7 @@ Think of delta disks as **layers of changes** stacked on top of the base disk.
 
 ---
 
-# 🧩 **3. How They Work Together (Snapshot Chain)**
+**3. How They Work Together (Snapshot Chain)**
 
 When you take snapshots, VMware builds a chain:
 
@@ -63,18 +64,18 @@ VMname-000003.vmdk
 
 The VM reads from the entire chain.
 
-### ✔ Reads:
+✔ Reads:
 VM reads from:
 - The newest delta  
 - If data not found → previous delta  
 - If still not found → base disk  
 
-### ✔ Writes:
+ ✔ Writes:
 VM writes **only** to the newest delta disk.
 
 ---
 
-# 🟥 **4. Why Delta Disks Exist**
+**4. Why Delta Disks Exist**
 Snapshots allow you to:
 
 - Roll back changes  
@@ -86,7 +87,7 @@ Delta disks make this possible by storing changes separately.
 
 ---
 
-# 🟦 **5. What Happens When You Delete a Snapshot**
+**5. What Happens When You Delete a Snapshot**
 Deleting a snapshot **merges** the delta disk into its parent.
 
 Example:
@@ -100,7 +101,8 @@ Eventually, all deltas merge back into the base disk.
 
 ---
 
-# 🟧 **6. What Causes Orphaned or Redundant Delta Disks**
+**6. What Causes Orphaned or Redundant Delta Disks**
+
 This is where consolidation comes in.
 
 Let’s break down **orphaned delta disks** and **redundant delta disks** in a way that makes the whole snapshot system easy to understand.  
@@ -112,14 +114,14 @@ These two terms explain *why* VMware sometimes shows:
 
 ---
 
-# 🟥 **1. What Are Orphaned Delta Disks?**
+**1. What Are Orphaned Delta Disks?**
 An **orphaned delta disk** is a snapshot file that:
 
 - Still exists on the datastore  
 - But is **not shown** in Snapshot Manager  
 - And is **not attached** to the VM’s snapshot chain  
 
-### ✔ Why does this happen?
+✔ Why does this happen?
 Typical causes:
 
 - Backup software created a snapshot but failed to delete it  
@@ -128,7 +130,7 @@ Typical causes:
 - Disk lock issues  
 - Admin manually deleted snapshot entries from Snapshot Manager  
 
-### ✔ How you detect it
+✔ How you detect it
 - Snapshot Manager shows **no snapshots**  
 - Datastore browser shows files like:  
   ```
@@ -137,7 +139,7 @@ Typical causes:
   ```
 - VMX file does not reference these deltas  
 
-### ✔ Why it’s a problem
+✔ Why it’s a problem
 The VM is still reading/writing through these delta disks even though vCenter doesn’t know they exist.  
 This causes:
 
@@ -148,10 +150,10 @@ This causes:
 
 ---
 
-# 🟧 **2. What Are Redundant Delta Disks?**
+**2. What Are Redundant Delta Disks?**
 A **redundant delta disk** is a leftover delta that should have been merged but wasn’t.
 
-### ✔ Why does this happen?
+✔ Why does this happen?
 Example scenario:
 
 1. You delete a snapshot  
@@ -163,12 +165,12 @@ Example scenario:
 
 This leftover delta is **redundant**.
 
-### ✔ How you detect it
+✔ How you detect it
 - Snapshot Manager shows snapshots  
 - But datastore shows **more delta disks than expected**  
 - Or snapshot deletion fails repeatedly  
 
-### ✔ Why it’s a problem
+✔ Why it’s a problem
 - VM is running on a deep chain of deltas  
 - Disk I/O becomes slow  
 - Risk of corruption increases  
@@ -176,7 +178,7 @@ This leftover delta is **redundant**.
 
 ---
 
-# 🟦 **3. Why VMware Needs Consolidation**
+**Why VMware Needs Consolidation**
 Consolidation is a **repair operation**.
 
 It fixes the snapshot chain by:
@@ -195,7 +197,7 @@ After consolidation:
 
 ---
 
-# 🟩 **4. Simple Analogy**
+**4. Simple Analogy**
 Think of the base disk as a **book**.
 
 Each snapshot creates a **sticky note** with changes.
@@ -238,20 +240,6 @@ If consolidation is needed, vCenter shows the warning:
 
 ---
 
-# 🧩 Why Consolidation Is Needed  
-When a snapshot is deleted normally, VMware merges the delta disk into the base disk and removes the snapshot entry.  
-But sometimes the merge fails, leaving behind **orphaned delta files**.
-
-Consolidation removes these leftover files and commits their data safely.  
-VMware notes that failing to consolidate can cause:
-
-- Datastore space consumption  
-- VM performance degradation  
-- Snapshot chain corruption  
-
-
-
----
 
 # 🧩 Consolidation vs Delete Snapshot (Important Difference)
 
@@ -280,17 +268,6 @@ If no snapshots appear in Snapshot Manager but consolidation is still needed, VM
 
 ---
 
-# 🧩 Space & Time Requirements  
-According to VMware‑aligned sources:
-
-- **Thick disks** → consolidation usually needs *no extra space*  
-- **Thin disks** → may require free space equal to the snapshot size  
-- Large snapshots take longer to consolidate  
-- Performance depends on datastore throughput and snapshot chain depth  
-
-
-
----
 
 # 🧩 When You Should Consolidate  
 You should consolidate when:
@@ -299,8 +276,6 @@ You should consolidate when:
 - Backup software leaves snapshots behind  
 - Snapshot deletion fails or stalls  
 - VM becomes slow due to large delta chains  
-
-
 
 ---
 
@@ -314,7 +289,7 @@ You should consolidate when:
 
 ---
 
-# 🟥 **1. Why Consolidation Sometimes Freezes a VM**
+# 🟥 **Why Consolidation Sometimes Freezes a VM**
 Consolidation merges delta disks back into the base disk.  
 During the final merge step, VMware must:
 
@@ -335,7 +310,7 @@ This is normal behavior — VMware documents that consolidation may cause a **br
 
 ---
 
-# 🟧 **2. How to Detect Orphaned Delta Disks**
+# 🟧 **How to Detect Orphaned Delta Disks**
 You can detect orphaned deltas in **three ways**:
 
 ### ✔ Method 1 — vCenter Warning  
@@ -384,35 +359,8 @@ VMname-000002.vmdk
 
 ---
 
-# 🟦 **3. How Snapshot Chains Work Internally**
-A snapshot chain is a sequence of delta disks.
 
-Example:
-
-```
-BaseDisk.vmdk
-   ↓
-VMname-000001.vmdk
-   ↓
-VMname-000002.vmdk
-   ↓
-VMname-000003.vmdk
-```
-
-Each delta stores **only the changes** since the previous layer.
-
-When you delete a snapshot:
-
-- VMware merges the delta into the parent  
-- Then removes the delta file  
-
-If the merge fails → the delta remains → **redundant delta**.
-
-If the snapshot entry disappears but the file remains → **orphaned delta**.
-
----
-
-# 🟩 **4. What Consolidation Actually Does Internally**
+# 🟩 **What Consolidation Actually Does Internally**
 Consolidation performs:
 
 ### ✔ Step 1 — Rebuild the snapshot chain  
@@ -429,7 +377,7 @@ Ensures the VM points to the correct disk.
 
 ---
 
-# 🟨 **5. How to Avoid Consolidation Problems**
+# 🟨 **How to Avoid Consolidation Problems**
 ### ✔ Avoid long‑term snapshots  
 Never keep snapshots for more than **24–72 hours**.
 
@@ -447,7 +395,7 @@ Most consolidation issues come from backup tools.
 
 ---
 
-# 🟪 **6. How to Fix Stuck Consolidation**
+# 🟪 **How to Fix Stuck Consolidation**
 If consolidation fails:
 
 ### ✔ Option 1 — Create a new snapshot → Delete it  
