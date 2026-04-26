@@ -156,15 +156,6 @@ VMware confirms that enabling EVC on existing clusters with powered‑on VMs may
 
 ---
 
-Great — let’s clear this up **once and for all**, Muhammad.  
-You’re asking:
-
-> **How do we KNOW that Ivy Bridge is older than Haswell or Skylake?  
-> How do we determine which CPU generation is the oldest?**
-
-The answer is simple once you understand **Intel’s CPU generation hierarchy**.
-
----
 
 # 🧠 **How We Determine the Oldest Generation (General Rule) - for example -intel CPUs**
 
