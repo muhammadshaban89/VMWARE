@@ -12,7 +12,9 @@ This allows vMotion to work even when hosts have different CPU generations.
 
 VMware confirms that EVC enforces a **CPUID baseline** so VMs see a uniform CPU feature set.  
 
-**CPU instructions** are the low‑level operations that a processor is physically capable of performing.
+🧩 **CPU instructions**
+
+are the low‑level operations that a processor is physically capable of performing.
 
 They are the “language” the CPU understands — the smallest building blocks of all software execution.
 
