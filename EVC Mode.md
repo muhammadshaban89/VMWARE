@@ -9,8 +9,20 @@ EVC ensures that **all hosts in a cluster present the same CPU instruction set**
 This allows vMotion to work even when hosts have different CPU generations.  
 VMware confirms that EVC enforces a **CPUID baseline** so VMs see a uniform CPU feature set.  
 
-
+CPU instructions are the low‑level operations that a processor is physically capable of performing.
+They are the “language” the CPU understands — the smallest building blocks of all software execution.
+Understanding CPU instructions is the key to understanding why EVC exists and why different CPU generations are incompatible without it.
+Let’s break it down clearly and practically.
 Without EVC → vMotion fails with CPU mismatch errors.
+
+A CPU instruction is a single operation the processor can execute, such as:
+• 	Add two numbers
+• 	Move data from memory to a register
+• 	Encrypt data
+• 	Perform vector math
+• 	Compress or decompress data
+• 	Execute floating‑point operations
+Every CPU generation adds new instructions that older CPUs do not have.
 
 ---
 
