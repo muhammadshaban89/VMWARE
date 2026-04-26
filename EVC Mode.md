@@ -98,16 +98,56 @@ You must set EVC to **Ivy Bridge** so both hosts match.
 # 🧩 Per‑VM EVC (Important)  
 VMware explains that Per‑VM EVC applies EVC at the **VM level**, not the cluster.  
 
+How Per‑VM EVC Works?
+Per‑VM EVC sets a minimum CPU feature requirement for that VM.
+This requirement must be met by any host the VM runs on.
+VMware states:
+• 	Per‑VM EVC is a VM attribute, not a cluster attribute.
+• 	It allows VMs to migrate across clusters with different CPU generations.
+• 	It can be higher than the cluster EVC mode.
+• 	But the VM can only power on or vMotion to hosts that support that higher baseline.
 
-This allows:  
-- Migrating VMs across clusters  
-- Running newer CPU features inside a cluster with older hosts  
-- Horizon Instant Clones to remain compatible  
+🧩 Detailed Example
+Cluster Hosts:
+• 	Host A → Sandy Bridge
+• 	Host B → Ivy Bridge
+• 	Host C → Haswell
+Cluster EVC = Sandy Bridge
+This ensures:
+• 	All hosts can join the cluster
+• 	All VMs can vMotion between all hosts (if they use Sandy Bridge features only)
+VM Per‑VM EVC = Haswell
+This VM now requires:
+• 	AVX2
+• 	FMA3
+• 	Other Haswell‑level instructions
+Result:
+• 	VM can run on Host C (Haswell)
+• 	VM cannot run on Host A or B
+• 	vMotion will only allow migration to Haswell‑capable hosts
+• 	Cluster EVC does NOT restrict this VM’s CPU features
+This behavior is explicitly documented by VMware.
 
-Example:  
-Cluster EVC = Sandy Bridge  
-VM Per‑VM EVC = Haswell  
-→ VM can use Haswell features **as long as it stays on Haswell‑capable hosts**.
+🧩 Why VMware Created Per‑VM EVC
+VMware introduced Per‑VM EVC to solve a major problem:
+
+Per‑VM EVC allows:
+• 	High‑performance VMs to use newer CPU features
+• 	Older hosts to remain in the cluster
+• 	VMs to migrate across clusters and vCenters
+• 	Horizon Instant Clones to maintain compatibility
+VMware confirms that Per‑VM EVC “enables true mobility for VMs” across different CPU generations.
+
+🧩 Important Rules to Remember
+✔ A VM’s Per‑VM EVC mode can be higher than the cluster EVC
+But only if the host supports it.
+✔ A VM with Per‑VM EVC = Haswell
+Cannot run on Sandy Bridge or Ivy Bridge hosts.
+✔ Per‑VM EVC requires:
+• 	VM must be powered off to change mode
+• 	VM hardware version 14 or later
+• 	vSphere 6.7+
+
 
 ---
 
