@@ -4,6 +4,9 @@ It is different from “Delete Snapshot,” which removes a snapshot normally.
 
 Consolidation is used only when VMware detects orphaned or redundant delta disks. 
 
+
+
+
 ---
 
 **1. Base Disk (Parent Disk)**
@@ -223,22 +226,6 @@ A sticky note was supposed to be removed, but it stayed stuck to the page.
 
 ---
 
-# 🧩 What “Snapshot Consolidation” Means  
-VMware defines snapshot consolidation as the process of **merging snapshot delta disks into the base disk** when a previous delete/revert operation failed or left behind redundant delta files.  
-This happens when:
-
-- Backup software fails to remove snapshots  
-- Snapshot deletion stops at 99%  
-- Disk files remain locked  
-- Snapshot hierarchy becomes inconsistent  
-
-
-
-If consolidation is needed, vCenter shows the warning:
-
-> **Virtual machine disks consolidation is needed**
-
----
 
 
 # 🧩 Consolidation vs Delete Snapshot (Important Difference)
