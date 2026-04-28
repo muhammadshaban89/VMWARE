@@ -198,5 +198,3 @@ Once the 7.0 U2 host is upgraded:
 ---
 
 
-
-Just tell me what you want next.
