@@ -140,7 +140,7 @@ The difference between a *patch* and an *upgrade* in VMware
 
 ---
 
-## 🏗️ **Real‑World Example (Your VMware Environment)**
+## 🏗️ **Real‑World Example**
 
 ### **Patch scenario**
 You are on **ESXi 8.0 Update 3** and VMware releases **8.0 Update 3k** with:  
