@@ -92,4 +92,4 @@ If vMotion fails → remediation fails.
 ---
 
 
-If you want, I can also explain **Storage vMotion**, **Cross‑vCenter vMotion**, or **EVC impact on migrations**.
+
